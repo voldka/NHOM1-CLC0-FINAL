@@ -162,7 +162,7 @@ const deleteMany = async (req, res) => {
 const getAllProduct = async (req, res) => {
   try {
     const filters = {};
-    const { name, productTypes, page = 1, pageSize = 10 } = req.query;
+    const { name, productTypes, page = 1, pageSize } = req.query;
 
     if (name) {
       filters.name = { $regex: new RegExp(name, 'i') }; // Case-insensitive name search

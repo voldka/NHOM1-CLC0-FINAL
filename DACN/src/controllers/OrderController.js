@@ -60,9 +60,8 @@ const create = async (req, res, next) => {
         message: 'Giỏ hàng của bạn đang trống',
       });
     }
-    // Check countInStock
     const promises = [];
-    promises.push(OrderService.createOrder(req.body));
+    // Check countInStock
     for (let currentProduct of req.body.products) {
       const placingProduct = products.find(
         (item) => item._id.toString() === currentProduct.productId,
@@ -81,6 +80,7 @@ const create = async (req, res, next) => {
           message: `Sản phẩm ${placingProduct.name} có số lượng còn lại không đủ, hiện chỉ còn ${placingProduct.countInStock}`,
         });
       }
+      promises.push(OrderService.createOrder(req.body));
       promises.push(
         Product.updateOne(
           { _id: placingProduct._id.toString() },
