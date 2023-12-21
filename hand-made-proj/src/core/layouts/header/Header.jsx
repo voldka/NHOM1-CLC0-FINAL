@@ -1,5 +1,5 @@
 import { Avatar, Badge, Button, Dropdown, Tooltip } from 'antd';
-import React, { useMemo } from 'react';
+import React, { useMemo,useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import BagIcon from '../../../assets/icon/bagIcon.svg';
@@ -17,7 +17,26 @@ const Header = () => {
   const dispatch = useDispatch();
   const userInfo = useSelector(selectors.selectUserInfo);
   const products = useSelector(selectors.selectProducts);
+  const [searchValue, setSearchValue] = useState('');
 
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      performSearch();
+    }
+  };
+
+  const handleChange = (event) => {
+    setSearchValue(event.target.value);
+  };
+
+  const performSearch = () => {
+    navigate(`/cua-hang?name=${searchValue}`);
+  };
+
+  const handleIconClick = () => {
+    performSearch();
+  };
+  
   const handleNavigate = (direction) => {
     navigate(direction);
   };
@@ -62,12 +81,13 @@ const Header = () => {
           <div className='up'>
             <div className='input'>
               <input
-                placeholder='Tìm kiếm tại đây ...'
-                onClick={() => navigate('/cua-hang#search')}
-                readOnly
+              placeholder='Tìm kiếm tại đây ...'
+              value={searchValue}
+              onChange={handleChange}
+              onKeyDown={handleKeyDown}
               />
-              <div className='incon-search'>
-                <img src={SearchIcon} alt='logo' />
+              <div className='incon-search' onClick={handleIconClick}>
+              <img src={SearchIcon} alt='logo' />
               </div>
             </div>
             {!userInfo ? (
