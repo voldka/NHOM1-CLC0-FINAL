@@ -138,6 +138,10 @@ const Header = () => {
             <Button type='primary' size='large'>
               Mã giảm giá
             </Button>
+            {userInfo?.isAdmin && (
+            <Button type='primary' size='large' onClick={() => handleNavigate('/admin')}>
+                Trang quản trị
+              </Button>)}
           </div>
         </div>
       </header>

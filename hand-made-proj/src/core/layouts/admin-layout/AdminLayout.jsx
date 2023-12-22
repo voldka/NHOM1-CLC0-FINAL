@@ -9,12 +9,16 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UserOutlined,
+  ArrowLeftOutlined,
 } from '@ant-design/icons';
-import { Button, Layout, Menu, Tooltip, Typography } from 'antd';
+import { BackTop, Button, Layout, Menu, Tooltip, Typography } from 'antd';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { actions } from '../../../stores';
+const backButton = {
+    icon: <ArrowLeftOutlined />,
+  };
 
 const menuItems = [
   {
@@ -36,6 +40,7 @@ const menuItems = [
     icon: <DiffOutlined />,
   },
   {
+
     path: 'loai-san-pham',
     label: 'Loại sản phẩm',
     activeKey: 'loai-san-pham',
@@ -59,6 +64,7 @@ const menuItems = [
     activeKey: 'khuyen-mai',
     icon: <GiftOutlined />,
   },
+  
 ];
 
 const titleMap = {
@@ -69,6 +75,7 @@ const titleMap = {
   banner: 'quản lý quảng cáo',
   'khuyen-mai': 'quản lý khuyến mãi',
   'loai-san-pham': 'quản lý loại sản phẩm',
+  'Quay-ve':'Quay về trang khách hàng',
 };
 
 const AdminLayout = () => {
@@ -121,6 +128,12 @@ const AdminLayout = () => {
                       </NavLink>
                     </Menu.Item>
                   ))}
+                  <Menu.Item key="back-to-home">
+                  <NavLink to="/" className='flex ai-center'>
+                    <HomeOutlined />
+                    <span>Trở về khách hàng</span>
+                  </NavLink>
+                </Menu.Item>
                 </Menu>
               </div>
             </Layout.Sider>
@@ -128,9 +141,12 @@ const AdminLayout = () => {
           <Layout.Content>
             <div className='h-100'>
               <div className='py-3 px-4 border-bottom flex ai-center jc-between pr-5'>
+                <span>
                 <Typography.Title className='text-capitalize m-0'>
                   {titleMap[currentPage]}
                 </Typography.Title>
+                </span>
+
                 <Tooltip title='Đăng xuất' arrow={true}>
                   <Button type='primary' danger size='large' onClick={handleLogout}>
                     <LoginOutlined /> Đăng xuất
