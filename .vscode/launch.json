@@ -1,0 +1,28 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Program",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}\\DACN\\index.js",
+      "env": {
+        "MONGO_DB": "mongodb://127.0.0.1:27017/projectLThandmade",
+        "ACCESS_TOKEN_PRIVATE_KEY": "accesstokenkey",
+        "REFRESH_TOKEN_PRIVATE_KEY": "refreshtokenkey",
+        "ACCESS_TOKEN_EXPIRATION": "1h",
+        "REFRESH_TOKEN_EXPIRATION ": "30d",
+        "CLIENT_ID": "Aa1bokVLVxRR8d3Rw95Hq6ETrsmDPTOYSocPEmh9sj2HsRj1cRvAJCSBQ_uWeQbJqVHK09v1lXMPI5KF",
+        "SALT": "10",
+        "MAIL_ACCOUNT": "tailx0913@gmail.com",
+        "MAIL_PASSWORD": "pquo jnnn hkob gygf",
+        "BASE_URL": "http://localhost:3001",
+        "STRIPE_SECRET_KEY": "sk_test_51L3WQIKptgKXepUNM36u8sKy0MAQYXWHQlsAbBGpQ6v4r9pWQVgc7tHycVkbvnYuJD3VtHlNn3JjtneAlerNV4kc00D7mGRZO6"
+      }
+    }
+  ]
+}

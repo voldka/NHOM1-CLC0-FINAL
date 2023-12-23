@@ -14,6 +14,7 @@ const createProduct = (data) => {
         });
       }
       const newProduct = await Product.create(data);
+
       return resolve(newProduct);
     } catch (e) {
       reject(e);
@@ -46,25 +47,9 @@ const updateProduct = (id, data) => {
         });
       }
 
-      const updatedProduct = await Product.findByIdAndUpdate(id, data, {
-        new: true,
-      });
-      resolve({
-        status: 'OK',
-        message: 'Thành công',
-        data: {
-          total: null,
-          pageCurrent: null,
-          totalPage: null,
-          userData: null,
-          productData: updatedProduct,
-          orderData: null,
-          carouselData: null,
-          commentData: null,
-        },
-        access_token: null,
-        refresh_token: null,
-      });
+      const updatedProduct = await Product.findByIdAndUpdate(id, data);
+      
+      return resolve(updatedProduct);
     } catch (e) {
       reject(e);
     }
