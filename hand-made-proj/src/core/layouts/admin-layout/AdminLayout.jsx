@@ -141,15 +141,6 @@ const AdminLayout = () => {
                       </NavLink>
                     </Menu.Item>
                   ))}
-<<<<<<< HEAD
-=======
-                  <Menu.Item key="back-to-home">
-                    <NavLink to="/" className="flex ai-center">
-                      <HomeOutlined />
-                      <span>Trở về khách hàng</span>
-                    </NavLink>
-                  </Menu.Item>
->>>>>>> 9e01dae02bbda7a200465658c64da9c1ff14fd61
                 </Menu>
               </div>
             </Layout.Sider>
