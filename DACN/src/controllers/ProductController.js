@@ -1,5 +1,5 @@
-const ProductService = require('../services/ProductService');
-const validationSchema = require('../utils/validationSchema');
+const ProductService = require("../services/ProductService");
+const validationSchema = require("../utils/validationSchema");
 
 const ratingProduct = async (req, res) => {
   try {
@@ -13,7 +13,7 @@ const ratingProduct = async (req, res) => {
     });
     if (error) {
       return res.status(400).json({
-        status: 'error',
+        status: "error",
         statusCode: 400,
         message: error.details[0].message,
       });
@@ -34,7 +34,10 @@ const ratingProduct = async (req, res) => {
 const createProduct = async (req, res) => {
   try {
     const newImages = req.files.map(
-      (file) => process.env.BASE_URL + '/uploads/products/' + file.filename.replace(/\s/g, ''),
+      (file) =>
+        process.env.BASE_URL +
+        "/uploads/products/" +
+        file.filename.replace(/\s/g, "")
     );
 
     const data = {
@@ -44,7 +47,7 @@ const createProduct = async (req, res) => {
     const { error } = validationSchema.createProductSchemaBodyValidation(data);
     if (error) {
       return res.status(400).json({
-        status: 'error',
+        status: "error",
         statusCode: 400,
         message: error.details[0].message,
       });
@@ -52,9 +55,9 @@ const createProduct = async (req, res) => {
 
     const response = await ProductService.createProduct(data);
     return res.status(201).json({
-      status: 'success',
+      status: "success",
       statusCode: 201,
-      message: 'Thêm sản phẩm thành công',
+      message: "Thêm sản phẩm thành công",
       data: response,
     });
   } catch (e) {
@@ -65,29 +68,80 @@ const createProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   try {
+    let images = req.body.images;
     const productId = req.params.productId;
     if (!productId) {
       return res.status(400).json({
-        status: 'error',
+        status: "error",
         statusCode: 400,
-        message: 'Vui lòng cung cấp productId',
+        message: "Vui lòng cung cấp productId",
       });
     }
 
     const newImages = req.files.map(
-      (file) => process.env.BASE_URL + '/uploads/product/' + file.filename.replace(/\s/g, ''),
+      (file) =>
+        process.env.BASE_URL +
+        "/uploads/products/" +
+        file.filename.replace(/\s/g, "")
     );
+    let replacedReqBodyImages, arrayOfUrls, item, splitUrls;
+    let formattedData = [];
 
-    const images = [].concat(newImages);
+    if (typeof images != "string") {
+      arrayOfUrls = images.filter((img) => img !== "undefined");
+      item = arrayOfUrls[0];
+      splitUrls = item.split(",");
+      formattedData = formattedData.concat(splitUrls);
+    } else {
+      splitUrls = images.split(",");
+      formattedData = formattedData.concat(splitUrls);
+    }
 
+    if (typeof images === "string") {
+      arrayOfUrls = images.split(",");
+    }
+    if (newImages.length != 0) {
+      replacedReqBodyImages = [
+        ...new Set([
+          ...newImages.filter((img) => img !== "undefined"),
+          ...formattedData,
+        ]),
+      ];
+      replacedReqBodyImages = replacedReqBodyImages.map((img) =>
+        img.replace("undefined/", process.env.BASE_URL)
+      );
+    } else {
+      replacedReqBodyImages = arrayOfUrls.filter((img) => img !== "undefined");
+      replacedReqBodyImages = replacedReqBodyImages.map((img) =>
+        img.replace("undefined/", process.env.BASE_URL)
+      );
+    }
+    let {
+      name,
+      type,
+      price,
+      countInStock,
+      rating,
+      description,
+      discount,
+      selled,
+    } = req.body;
     const data = {
-      ...req.body,
-      image: images,
+      name,
+      type,
+      price,
+      countInStock,
+      rating,
+      description,
+      discount,
+      selled,
+      image: replacedReqBodyImages,
     };
-    const { error } = validationSchema.createProductSchemaBodyValidation(data);
+ 
+    const { error } = validationSchema.updateProductSchemaBodyValidation(data);
     if (error) {
       return res.status(400).json({
-        status: 'error',
+        status: "error",
         statusCode: 400,
         message: error.details[0].message,
       });
@@ -95,7 +149,12 @@ const updateProduct = async (req, res) => {
 
     const response = await ProductService.updateProduct(productId, data);
 
-    return res.status(200).json(response);
+    return res.status(201).json({
+      status: "success",
+      statusCode: 201,
+      message: "Cập nhật sản phẩm thành công",
+      data: response,
+    });
   } catch (e) {
     console.log(e);
     return res.status(e.statusCode || 500).json(e);
@@ -107,14 +166,14 @@ const getDetailsProduct = async (req, res) => {
     const productId = req.params.productId;
     if (!productId) {
       return res.status(400).json({
-        status: 'error',
+        status: "error",
         statusCode: 400,
-        message: 'Vui lòng cung cấp productId',
+        message: "Vui lòng cung cấp productId",
       });
     }
     const response = await ProductService.getDetailsProduct(productId);
     return res.status(200).json({
-      status: 'success',
+      status: "success",
       statusCode: 200,
       data: response,
     });
@@ -129,8 +188,8 @@ const deleteProduct = async (req, res) => {
     const productId = req.params.productId;
     if (!productId) {
       return res.status(200).json({
-        status: 'ERR',
-        message: 'The productId is required',
+        status: "ERR",
+        message: "The productId is required",
       });
     }
     const response = await ProductService.deleteProduct(productId);
@@ -146,9 +205,9 @@ const deleteMany = async (req, res) => {
     const ids = req.body.ids;
     if (!ids) {
       return res.status(400).json({
-        status: 'error',
+        status: "error",
         statusCode: 400,
-        message: 'Vui lòng cung cấp danh sách productId',
+        message: "Vui lòng cung cấp danh sách productId",
       });
     }
     const response = await ProductService.deleteManyProduct(ids);
@@ -165,14 +224,18 @@ const getAllProduct = async (req, res) => {
     const { name, productTypes, page = 1, pageSize } = req.query;
 
     if (name) {
-      filters.name = { $regex: new RegExp(name, 'i') }; // Case-insensitive name search
+      filters.name = { $regex: new RegExp(name, "i") }; // Case-insensitive name search
     }
     if (productTypes) {
-      const typeArray = productTypes.split(','); // Convert comma-separated types to an array
+      const typeArray = productTypes.split(","); // Convert comma-separated types to an array
       filters.type = { $in: typeArray };
     }
 
-    const response = await ProductService.getAllProduct(filters, page, pageSize);
+    const response = await ProductService.getAllProduct(
+      filters,
+      page,
+      pageSize
+    );
     return res.status(200).json(response);
   } catch (e) {
     console.log(e);
@@ -195,14 +258,14 @@ const getRelevantProducts = async (req, res) => {
     const productId = req.params.productId;
     if (!productId) {
       return res.status(400).json({
-        status: 'error',
+        status: "error",
         statusCode: 400,
-        message: 'Vui lòng cung cấp productId',
+        message: "Vui lòng cung cấp productId",
       });
     }
     const response = await ProductService.getRelevantProducts(productId);
     return res.status(200).json({
-      status: 'success',
+      status: "success",
       statusCode: 200,
       data: response,
     });

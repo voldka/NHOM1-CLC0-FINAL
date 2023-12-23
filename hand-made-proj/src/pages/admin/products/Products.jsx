@@ -48,15 +48,16 @@ const Products = () => {
   const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
 
   const openEditModal = (values) => {
-    setIsProduct(values._id);
+    setIsProduct(values?._id);
     let dataImg = [];
-    values.image.forEach((item) => {
-      dataImg.push({ url: item[0] });
+    values?.image.forEach((item) => {
+      dataImg.push({ url: item });
     });
     reset({
       name: values.name,
       type: values.type,
       price: values.price,
+      images: values.image,
       countInStock: values.countInStock,
       description: values.description,
     });
@@ -93,11 +94,13 @@ const Products = () => {
   };
 
   const editProduct = async (formValue) => {
+    if (!fileList.length) {
+      return messageApi.error('Vui lòng cung cấp hình ảnh sản phẩm');
+    }
     const formData = new FormData();
     for (const field in formValue) {
       formData.append(field, formValue[field]);
     }
-
     fileList.forEach((file) => {
       formData.append('images', file.originFileObj);
     });
@@ -249,7 +252,15 @@ const Products = () => {
             {product && (
               <Space>
                 <Tooltip title='Cập nhật'>
-                  <Button size='large' type='primary' shape='circle' icon={<EditOutlined />} />
+                  <Button 
+                  size='large' 
+                  type='primary' 
+                  shape='circle' 
+                  icon={<EditOutlined />}
+                  onClick={() => {
+                    openEditModal(product)
+                  }}
+                   />
                 </Tooltip>
                 <Tooltip title='Xoá'>
                   <Button
@@ -284,7 +295,13 @@ const Products = () => {
           icon={<PlusOutlined />}
           onClick={() => {
             setIsCreate(true);
-            reset();
+            reset({
+              name: '',
+              type: null,
+              price: '',
+              countInStock: '',
+              description: '',
+            });
             setFileList([]);
           }}>
           Thêm sản phẩm
