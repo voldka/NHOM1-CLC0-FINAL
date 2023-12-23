@@ -10,7 +10,12 @@ html {
 
 body,
 body * {
+<<<<<<< HEAD
   font-family: 'Open Sans', sans-serif !important;
+=======
+  font-family: "Poppins", sans-serif !important;
+  font-family: "Open Sans", sans-serif !important;
+>>>>>>> 9e01dae02bbda7a200465658c64da9c1ff14fd61
 }
 
 a {
@@ -82,7 +87,7 @@ strong {
   white-space: nowrap !important;
 }
 
-span[role='img'] {
+span[role="img"] {
   vertical-align: middle;
 }
 
