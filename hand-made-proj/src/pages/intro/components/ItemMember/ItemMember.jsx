@@ -7,7 +7,7 @@ const ItemMember = ({ item }) => {
             <hr />
             <img src={item.img} alt='' />
             <div className='info'>
-                <div>Trưởng nhóm</div>
+                <div>Thành viên</div>
                 <div>{item.name}</div>
             </div>
             <div className='contact'>Email: <span>{item.email}</span></div>

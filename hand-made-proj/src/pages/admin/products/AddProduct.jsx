@@ -40,7 +40,7 @@ const AddProduct = ({
           placeholder='Loại sản phẩm'
           dropdownOptions={productTypes}
           rules={{
-            required: 'Vui lòng chọn loại sản phẩmVui lòng chọn loại sản phẩm',
+            required: 'Vui lòng chọn loại sản phẩm',
           }}
         />
         <div>
@@ -93,7 +93,7 @@ const AddProduct = ({
             required: 'Vui lòng nhập thông tin',
             validate: (value) => {
               if (isNaN(+value) || +value < 0) {
-                return 'Giá tiền không hợp lệ';
+                return 'Số lượng không hợp lệ';
               }
               return null;
             },

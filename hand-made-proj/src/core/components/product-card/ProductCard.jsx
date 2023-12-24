@@ -10,15 +10,16 @@ export default function ProductCard({ product }) {
       <Card
         style={{
           width: 300,
+          boxShadow:  '2px 2px 4px 2px rgba(0, 0, 0, 0.1)',
         }}
         className='product-card'
-        cover={<Image alt={product.name} src={product?.image[0]} />}>
+        cover={<Image alt={product.name} src={product?.image[0]} style = {{objectFit: 'cover', width: '300px', height: '400px'}}  />}>
         <Card.Meta
           title={<div className='text-center text-capitalize'>{product.name}</div>}
           description={
             <>
               <div className='text-center text-success' style={{ fontSize: 18 }}>
-                <NumericFormat value={product.price} displayType='text' thousandSeparator=',' />
+                <NumericFormat value={product.price} displayType='text' thousandSeparator=',' /><span> đ</span>
               </div>
             </>
           }

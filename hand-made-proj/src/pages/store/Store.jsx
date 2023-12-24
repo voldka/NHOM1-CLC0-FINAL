@@ -153,7 +153,7 @@ const Store = () => {
       {products && products.length ? (
         <div className='store-body'>
           {products.map((item) => (
-            <ProductCard key={item._id} product={item} />
+            <ProductCard key={item._id} product={item}/>
           ))}
         </div>
       ) : (

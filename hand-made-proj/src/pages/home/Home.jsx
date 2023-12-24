@@ -65,7 +65,7 @@ const Home = () => {
                 {productTypes.map((productType) => (
                   <div key={productType._id} className='product-type'>
                     <div className='product-type-overlap'>
-                      <NavLink to={`/cua-hang?productType=${productType._id}`} className='w-100'>
+                      <NavLink to={`/cua-hang?productTypes=${productType._id}`} className='w-100'>
                         <Button
                           size='large'
                           className='product-type-overlap-button w-100'
@@ -74,7 +74,7 @@ const Home = () => {
                         </Button>
                       </NavLink>
                     </div>
-                    <img src={productType.imageUrl} alt={productType.name} />
+                    <img src={productType.imageUrl} alt={productType.name} style={{objectFit:'cover'}}/>
                     <h5>{productType.name}</h5>
                   </div>
                 ))}
