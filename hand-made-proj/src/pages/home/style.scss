@@ -9,7 +9,7 @@
 
     .product-type {
       position: relative;
-      margin: 0 24px;
+      // margin: 8px 24px;  
 
       display: flex;
       flex-direction: column;
@@ -19,9 +19,6 @@
       padding: 16px;
       width: 300px;
       height: 360px;
-
-      color: initial;
-      transition: all 0.3s ease;
       border-radius: 4px;
 
       .product-type-overlap {
@@ -47,9 +44,6 @@
       }
 
       &:hover {
-        box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
-
         .product-type-overlap {
           display: flex;
           flex-direction: column;
@@ -67,4 +61,27 @@
       }
     }
   }
+  .warp-product-type {
+    --c: rgba(0,0,0,0.8); /* the border color */
+    --b: 4px; /* the border thickness*/
+    --g: 4px; /* the gap on hover */
+    margin: 8px 12px;  
+    padding: calc(var(--g) + var(--b));
+    --_g: #0000 25%, var(--c) 0;
+    background: conic-gradient(
+          from 180deg at top var(--b) right var(--b),
+          var(--_g)
+        )
+        var(--_i, 200%) 0 /200% var(--_i, var(--b)) no-repeat,
+      conic-gradient(at bottom var(--b) left var(--b), var(--_g)) 0
+        var(--_i, 200%) / var(--_i, var(--b)) 200% no-repeat;
+    transition: 0.3s, background-position 0.3s 0.3s;
+    cursor: pointer;
+    &:hover {
+      --_i: 100%;
+      transition: 0.3s, background-size 0.3s 0.3s;
+    }
+  }
 }
+// .warp-product-type:hover {
+// }
