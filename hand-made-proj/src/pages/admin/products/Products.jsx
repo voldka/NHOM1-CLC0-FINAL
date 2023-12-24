@@ -1,17 +1,18 @@
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
-import { Button, Image, Space, message, Tooltip } from 'antd';
+import { Button, Image, Space, Tooltip, message } from 'antd';
 import moment from 'moment/moment';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { NumericFormat } from 'react-number-format';
 import { useDispatch } from 'react-redux';
+import Swal from 'sweetalert2';
 import LtDynamicTable from '../../../core/components/lt-dynamic-table/LtDynamicTable';
 import LtFormModal from '../../../core/components/lt-form-modal';
 import ProductTypesService from '../../../shared/services/product-types.service';
 import { productService } from '../../../shared/services/products.service';
 import { actions } from '../../../stores';
 import AddProduct from './AddProduct';
-import Swal from 'sweetalert2';
+import { NavLink } from 'react-router-dom';
 
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -23,13 +24,11 @@ const getBase64 = (file) =>
 
 const Products = () => {
   const [isCreate, setIsCreate] = useState(false);
-  const [isEdit, setIsEdit] = useState(false);
   const [products, setProducts] = useState([]);
   const [productTypes, setProductTypes] = useState([]);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
-  const [idProduct, setIsProduct] = useState();
   const [fileList, setFileList] = useState();
   const dispatch = useDispatch();
   const [messageApi, contextHolder] = message.useMessage();
@@ -47,24 +46,6 @@ const Products = () => {
 
   const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
 
-  const openEditModal = (values) => {
-    setIsProduct(values?._id);
-    let dataImg = [];
-    values?.image.forEach((item) => {
-      dataImg.push({ url: item });
-    });
-    reset({
-      name: values.name,
-      type: values.type,
-      price: values.price,
-      images: values.image,
-      countInStock: values.countInStock,
-      description: values.description,
-    });
-    setFileList(dataImg);
-    setIsEdit(true);
-  };
-
   const createNewProduct = async (formValue) => {
     if (!fileList.length) {
       return messageApi.error('Vui lòng cung cấp hình ảnh sản phẩm');
@@ -74,9 +55,11 @@ const Products = () => {
     for (const field in formValue) {
       formData.append(field, formValue[field]);
     }
-    fileList.forEach((file) => {
-      formData.append('images', file.originFileObj);
-    });
+    if (fileList && fileList.length) {
+      fileList.forEach((file) => {
+        formData.append('images', file.originFileObj);
+      });
+    }
 
     try {
       dispatch(actions.showLoading());
@@ -86,33 +69,6 @@ const Products = () => {
       setFileList([]);
       getProducts();
       setIsCreate(false);
-    } catch (error) {
-      messageApi.error(error?.response?.data?.message || error.message);
-    } finally {
-      dispatch(actions.hideLoading());
-    }
-  };
-
-  const editProduct = async (formValue) => {
-    if (!fileList.length) {
-      return messageApi.error('Vui lòng cung cấp hình ảnh sản phẩm');
-    }
-    const formData = new FormData();
-    for (const field in formValue) {
-      formData.append(field, formValue[field]);
-    }
-    fileList.forEach((file) => {
-      formData.append('images', file.originFileObj);
-    });
-
-    try {
-      dispatch(actions.showLoading());
-      await productService.updateProducts(formData, idProduct);
-      reset();
-      setFileList([]);
-      getProducts();
-      messageApi.success('Cập nhật thành công');
-      setIsEdit(false);
     } catch (error) {
       messageApi.error(error?.response?.data?.message || error.message);
     } finally {
@@ -157,7 +113,6 @@ const Products = () => {
       if (isConfirmed) {
         try {
           await productService.deleteProducts(idProduct);
-          setIsEdit(false);
           messageApi.open({
             type: 'success',
             content: 'Xóa thành công',
@@ -170,10 +125,6 @@ const Products = () => {
         }
       }
     });
-  };
-
-  const handleClearEditForm = () => {
-    setIsEdit(false);
   };
 
   const {
@@ -252,15 +203,9 @@ const Products = () => {
             {product && (
               <Space>
                 <Tooltip title='Cập nhật'>
-                  <Button 
-                  size='large' 
-                  type='primary' 
-                  shape='circle' 
-                  icon={<EditOutlined />}
-                  onClick={() => {
-                    openEditModal(product)
-                  }}
-                   />
+                  <NavLink to={`/admin/san-pham/${product._id}`}>
+                    <Button size='large' type='primary' shape='circle' icon={<EditOutlined />} />
+                  </NavLink>
                 </Tooltip>
                 <Tooltip title='Xoá'>
                   <Button
@@ -295,13 +240,7 @@ const Products = () => {
           icon={<PlusOutlined />}
           onClick={() => {
             setIsCreate(true);
-            reset({
-              name: '',
-              type: null,
-              price: '',
-              countInStock: '',
-              description: '',
-            });
+            reset();
             setFileList([]);
           }}>
           Thêm sản phẩm
@@ -324,27 +263,6 @@ const Products = () => {
         cancelBtnText='Huỷ'
         onCancel={() => setIsCreate(false)}
         onSubmit={handleSubmit(createNewProduct)}>
-        <AddProduct
-          control={control}
-          errors={errors}
-          handleCancel={handleCancel}
-          previewTitle={previewTitle}
-          previewImage={previewImage}
-          previewOpen={previewOpen}
-          fileList={fileList}
-          handleChange={handleChange}
-          handlePreview={handlePreview}
-          productTypes={productTypes.map((type) => ({ label: type.name, value: type._id }))}
-        />
-      </LtFormModal>
-      <LtFormModal
-        width={'50vw'}
-        isOpen={isEdit}
-        title='Cập Nhật Sản Phẩm'
-        okBtnText='Cập Nhật'
-        cancelBtnText='Huỷ'
-        onCancel={handleClearEditForm}
-        onSubmit={handleSubmit(editProduct)}>
         <AddProduct
           control={control}
           errors={errors}

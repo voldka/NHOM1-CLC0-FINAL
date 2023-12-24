@@ -14,7 +14,6 @@ const createProduct = (data) => {
         });
       }
       const newProduct = await Product.create(data);
-
       return resolve(newProduct);
     } catch (e) {
       reject(e);
@@ -25,33 +24,31 @@ const createProduct = (data) => {
 const updateProduct = (id, data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const checkProduct = await Product.findOne({
-        _id: id,
-      });
-      if (checkProduct === null) {
-        resolve({
-          status: 'ERR',
-          message: 'Không tìm thấy',
-          data: {
-            total: null,
-            pageCurrent: null,
-            totalPage: null,
-            userData: null,
-            productData: null,
-            orderData: null,
-            carouselData: null,
-            commentData: null,
-          },
-          access_token: null,
-          refresh_token: null,
+      const [currentProduct, existedProduct] = await Promise.all([
+        Product.findById(id),
+        Product.findOne({ name: { $regex: new RegExp('^' + data.name + '$', 'i') } }),
+      ]);
+      if (!currentProduct) {
+        return reject({
+          status: 'error',
+          statusCode: 404,
+          message: `Không tìm thấy sản phẩm có ID: ${id}`,
+        });
+      }
+      if (existedProduct && existedProduct._id.toString() !== id) {
+        return reject({
+          status: 'error',
+          statusCode: 404,
+          message: `Sản phẩm đã tồn tại`,
         });
       }
 
-      const updatedProduct = await Product.findByIdAndUpdate(id, data);
-      
+      const updatedProduct = await Product.findByIdAndUpdate(id, data, {
+        new: true,
+      }).select({ __v: 0, updatedAt: 0 });
       return resolve(updatedProduct);
-    } catch (e) {
-      reject(e);
+    } catch (error) {
+      return reject(error);
     }
   });
 };

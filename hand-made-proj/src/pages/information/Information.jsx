@@ -29,14 +29,13 @@ const Information = () => {
   const beforeUpload = (file) => {
     const isImage = file.type.startsWith('image/');
     if (!isImage) {
-      messageApi.warn('Chi cho phép upload hình ảnh');
+      messageApi.warning('Chi cho phép upload hình ảnh');
     }
     return false;
   };
 
   const revokeUrl = () => {
     if (avatarUrl) {
-      console.log('run revoke');
       URL.revokeObjectURL(avatarUrl);
     }
     setAvatarUrl(null);
@@ -112,7 +111,6 @@ const Information = () => {
       <Form layout='vertical' onFinish={handleSubmit(handleUpdateUser)}>
         <LtFormInput label='Email' name='email' control={control} placeholder='Email' />
         <LtFormInput
-          isPassword
           label='Mật khẩu'
           name='password'
           control={control}
@@ -126,7 +124,6 @@ const Information = () => {
           }}
         />
         <LtFormInput
-          isPassword
           label='Xác nhận mật khẩu'
           name='passwordConfirm'
           control={control}

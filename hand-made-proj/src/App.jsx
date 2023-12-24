@@ -1,14 +1,11 @@
 import React from 'react';
 import { useRoutes } from 'react-router-dom';
-import LazyComponent from './core/components/lazy-component';
 
+// Layout
+import LazyComponent from './core/components/lazy-component';
 import AdminLayout from './core/layouts/admin-layout';
 import LoadingSpinner from './core/layouts/loading-spinner';
 import NonAuth from './core/layouts/non-auth';
-import Login from './pages/auth/login/Login';
-import Register from './pages/auth/register/Register';
-import ForgotPassword from './pages/forgot-password/ForgotPassword';
-import Home from './pages/home';
 
 // Admin
 import Carousels from './pages/admin/carousels';
@@ -17,19 +14,26 @@ import Dashboard from './pages/admin/dashboard';
 import Orders from './pages/admin/orders';
 import ProductTypes from './pages/admin/product-types';
 import Products from './pages/admin/products';
+import UpdateProduct from './pages/admin/update-product';
 import Users from './pages/admin/users';
 
 // General
+import Login from './pages/auth/login/Login';
+import Register from './pages/auth/register/Register';
 import Detail from './pages/detail';
+import ForgotPassword from './pages/forgot-password/ForgotPassword';
+import Home from './pages/home';
 import Information from './pages/information';
 import Intro from './pages/intro';
 import MyCart from './pages/my-cart';
 import Order from './pages/order';
 import OrderPayment from './pages/order-payment';
 import Store from './pages/store';
-import NotLoggedInPermission from './core/permissions/NotLoggedInPermission';
-import LoggedInPermission from './core/permissions/LoggedInPermisioin';
+
+// Permissions
 import AdminPermission from './core/permissions/AdminPermission';
+import LoggedInPermission from './core/permissions/LoggedInPermisioin';
+import NotLoggedInPermission from './core/permissions/NotLoggedInPermission';
 
 const App = () => {
   const routes = useRoutes([
@@ -168,6 +172,10 @@ const App = () => {
         {
           path: 'don-hang',
           element: <LazyComponent component={<Orders />} />,
+        },
+        {
+          path: 'san-pham/:productId',
+          element: <LazyComponent component={<UpdateProduct />} />,
         },
         {
           path: 'san-pham',

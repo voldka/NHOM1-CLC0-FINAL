@@ -10,17 +10,11 @@ export default function ProductCard({ product }) {
       <Card
         style={{
           width: 300,
-          // height:500,
         }}
         className='product-card'
-        cover ={
-        <div style={{height:'400px', overflow: 'hidden' }}>
-          <Image alt={product.name} src={product?.image[0]} style={{width:'300px',height:'400px',objectFit:'cover'}} />
-             </div>
-        }>
+        cover={<Image alt={product.name} src={product?.image[0]} />}>
         <Card.Meta
           title={<div className='text-center text-capitalize'>{product.name}</div>}
-       
           description={
             <>
               <div className='text-center text-success' style={{ fontSize: 18 }}>

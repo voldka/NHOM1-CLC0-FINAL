@@ -93,7 +93,6 @@ const OrderPayment = () => {
           return rest;
         }),
       };
-      
       await OrdersService.createOrder(payload);
       messageApi.success('Đặt đơn hàng thành công');
       dispatch(actions.setCartProducts([]));

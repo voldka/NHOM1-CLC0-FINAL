@@ -103,7 +103,6 @@ export default function Register() {
               </div>
               <div className='col-md-6 col-xs-12'>
                 <LtFormInput
-                  isPassword
                   control={control}
                   name='passwordConfirm'
                   label='Xác nhận mật khẩu'
@@ -142,7 +141,7 @@ export default function Register() {
             />
             <LtFormInput
               name='address'
-              label='Địa chỉ'
+              label='Địa chỉ (không bắt buộc)'
               control={control}
               placeholder='Nhập địa chỉ của bạn'
             />

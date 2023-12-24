@@ -4,6 +4,7 @@ module.exports = {
   createOrder: (payload) => {
     return Orders.create(payload);
   },
+
   getOrders: (queries) => {
     return Orders.find(queries)
       .select({ __v: 0, updatedAt: 0 })

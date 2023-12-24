@@ -53,6 +53,7 @@ const createProductSchemaBodyValidation = (body) => {
     description: Joi.string().label('description'),
     discount: Joi.number().min(0).max(99).label('discount'),
     selled: Joi.number().min(0).label('selled'),
+    images: Joi.string(),
   });
   return schema.validate(body);
 };
@@ -60,12 +61,12 @@ const createProductSchemaBodyValidation = (body) => {
 const updateProductSchemaBodyValidation = (body) => {
   const schema = Joi.object({
     name: Joi.string().label('name'),
-    // images: Joi.array().items(Joi.string()).min(1),
     image: Joi.array().items(Joi.string()).min(1).required(),
     type: Joi.string().label('type'),
     price: Joi.number().min(0).label('price'),
     countInStock: Joi.number().min(0).label('countInStock'),
     rating: Joi.number().min(0).max(5).label('rating'),
+
     description: Joi.string().label('description'),
     discount: Joi.number().min(0).max(99).label('discount'),
     selled: Joi.number().min(0).label('selled'),

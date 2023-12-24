@@ -60,7 +60,6 @@ const create = async (req, res, next) => {
         message: 'Giỏ hàng của bạn đang trống',
       });
     }
-    const promises = [];
     // Check countInStock
     for (let currentProduct of req.body.products) {
       const placingProduct = products.find(
@@ -80,6 +79,7 @@ const create = async (req, res, next) => {
           message: `Sản phẩm ${placingProduct.name} có số lượng còn lại không đủ, hiện chỉ còn ${placingProduct.countInStock}`,
         });
       }
+      const promises = [];
       promises.push(OrderService.createOrder(req.body));
       promises.push(
         Product.updateOne(

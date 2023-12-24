@@ -53,7 +53,7 @@ const Home = () => {
         </Carousel>
       </div>
       <div className='container-fluid py-3'>
-        <h1 className='text-center text-uppercase'>danh mục loại sản phẩm</h1>
+        <h1 className='text-center text-uppercase'>danh mục sản phẩm</h1>
         <div className='flex ai-center jc-center'>
           <img src='/images/divider.png' alt='Divider' />
         </div>
@@ -63,9 +63,9 @@ const Home = () => {
             <>
               <div className='list-product-types'>
                 {productTypes.map((productType) => (
-                  <div key={productType._id} className='product-type' style={{with:'300px'}}>
+                  <div key={productType._id} className='product-type'>
                     <div className='product-type-overlap'>
-                      <NavLink to={`/cua-hang?productTypes=${productType._id}`} className='w-100'>
+                      <NavLink to={`/cua-hang?productType=${productType._id}`} className='w-100'>
                         <Button
                           size='large'
                           className='product-type-overlap-button w-100'
@@ -74,7 +74,7 @@ const Home = () => {
                         </Button>
                       </NavLink>
                     </div>
-                    <img src={productType.imageUrl} alt={productType.name} style={{objectFit:'cover'}} />
+                    <img src={productType.imageUrl} alt={productType.name} />
                     <h5>{productType.name}</h5>
                   </div>
                 ))}

@@ -11,9 +11,6 @@ import CarouselsService from '../../shared/services/carousels.service';
 import ProductTypesService from '../../shared/services/product-types.service';
 import { productService } from '../../shared/services/products.service';
 import { actions } from '../../stores';
-
-
-
 import './style.scss';
 
 const contentStyle = {
@@ -158,9 +155,7 @@ const Store = () => {
           {products.map((item) => (
             <ProductCard key={item._id} product={item} />
           ))}
-     
         </div>
-        
       ) : (
         <div className='text-center'>
           <Empty description='Không tìm thấy sản phẩm nào' />
