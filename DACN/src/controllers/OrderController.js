@@ -32,6 +32,7 @@ const setUpPaymentIntent = async (req, res, next) => {
 
 const create = async (req, res, next) => {
   try {
+    let promises = [];
     // Check cart
     const cart = await CartService.getCartByUserId();
     if (!cart) {
@@ -79,7 +80,7 @@ const create = async (req, res, next) => {
           message: `Sản phẩm ${placingProduct.name} có số lượng còn lại không đủ, hiện chỉ còn ${placingProduct.countInStock}`,
         });
       }
-      const promises = [];
+   
       promises.push(OrderService.createOrder(req.body));
       promises.push(
         Product.updateOne(

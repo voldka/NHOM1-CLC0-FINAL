@@ -182,6 +182,7 @@ const Dashboard = () => {
               control={control}
               placeholder='Từ ngày'
               error={errors.startDate}
+              
               rules={{
                 required: 'Vui lòng chọn giá trị',
               }}

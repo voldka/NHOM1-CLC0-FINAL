@@ -24,7 +24,7 @@ const Cart = () => {
         inputValue: product.amount || 0,
         inputPlaceholder: 'Nhập số lượng muốn đổi',
         inputValidator: (value) => {
-          if (!Number.isInteger(+value) || +value < 0) {
+          if (!Number.isInteger(+value) || +value <= 0) {
             return 'Số lượng không hợp lệ';
           }
         },
