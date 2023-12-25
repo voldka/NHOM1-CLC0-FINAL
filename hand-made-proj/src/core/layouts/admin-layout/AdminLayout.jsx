@@ -53,12 +53,12 @@ const menuItems = [
     activeKey: 'banner',
     icon: <FileImageOutlined />,
   },
-  {
-    path: 'khuyen-mai',
-    label: 'Khuyến mãi',
-    activeKey: 'khuyen-mai',
-    icon: <GiftOutlined />,
-  },
+  // {
+  //   path: 'khuyen-mai',
+  //   label: 'Khuyến mãi',
+  //   activeKey: 'khuyen-mai',
+  //   icon: <GiftOutlined />,
+  // },
 ];
 
 const titleMap = {

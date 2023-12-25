@@ -92,9 +92,9 @@ export default function Register() {
                   error={errors.password}
                   placeholder='Nhập mật khẩu'
                   rules={{
-                    required: 'Không được để trống',
+                    required: 'Không được để trống',  
                     pattern: {
-                      value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@!])[A-Za-z\d@!]{8,}$/,
+                      value:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@!#$%^&*])[A-Za-z\d@!#$%^&*]{8,}$/,
                       message:
                         'Mật khẩu phải chứa ít nhất 1 chữ in hoa, 1 chữ thường, 1 chữ số và 1 ký tự đặc biệt, tối thiểu là 8 ký tự.',
                     },
@@ -104,6 +104,7 @@ export default function Register() {
               <div className='col-md-6 col-xs-12'>
                 <LtFormInput
                   control={control}
+                  isPassword
                   name='passwordConfirm'
                   label='Xác nhận mật khẩu'
                   error={errors.passwordConfirm}
