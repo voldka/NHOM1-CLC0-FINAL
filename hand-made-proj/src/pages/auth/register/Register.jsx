@@ -135,14 +135,14 @@ export default function Register() {
               rules={{
                 required: 'Không được để trống',
                 pattern: {
-                  value: /^(0|\+84)\d{9,10}$/,
+                  value: /^(\+84|0)(3|5|7|8|9)(\d{8})$/,
                   message: 'Định dạng số điện thoại không hợp lệ.',
                 },
               }}
             />
             <LtFormInput
               name='address'
-              label='Địa chỉ (không bắt buộc)'
+              label='Địa chỉ'
               control={control}
               placeholder='Nhập địa chỉ của bạn'
             />

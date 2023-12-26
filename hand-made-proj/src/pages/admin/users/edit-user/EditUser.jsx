@@ -28,7 +28,7 @@ const EditUser = ({ avatar, control, errors }) => {
         <LtFormInput isDisabled label='Địa chỉ' name='address' control={control} />
         <LtFormInput
           isPassword
-          label='Mật khẩu'
+          label='Mật khẩu mới'
           name='password'
           control={control}
           error={errors.password}
