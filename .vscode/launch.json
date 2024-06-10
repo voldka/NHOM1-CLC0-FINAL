@@ -8,7 +8,9 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
-      "skipFiles": ["<node_internals>/**"],
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
       "program": "${workspaceFolder}\\DACN\\index.js",
       "env": {
         "MONGO_DB": "mongodb://127.0.0.1:27017/projectLThandmade",
@@ -16,7 +18,7 @@
         "REFRESH_TOKEN_PRIVATE_KEY": "refreshtokenkey",
         "ACCESS_TOKEN_EXPIRATION": "1h",
         "REFRESH_TOKEN_EXPIRATION ": "30d",
-        "CLIENT_ID": "Aa1bokVLVxRR8d3Rw95Hq6ETrsmDPTOYSocPEmh9sj2HsRj1cRvAJCSBQ_uWeQbJqVHK09v1lXMPI5KF",
+        "CLIENT_ID": "sk_test_51MGjmFKvxHcQ5Jm18rdSKfkUQd7DGlFuqdfoMPAaGnsZpUWVXBXCkO72QWg8fhhVTwGZdXgwdP0gtg0esYoKzx8G00FVZaQ7Xa",
         "SALT": "10",
         "MAIL_ACCOUNT": "tailx0913@gmail.com",
         "MAIL_PASSWORD": "pquo jnnn hkob gygf",
