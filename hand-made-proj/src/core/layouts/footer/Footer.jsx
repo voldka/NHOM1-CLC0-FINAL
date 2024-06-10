@@ -12,7 +12,7 @@ const Footer = () => {
         <div className='footer-left'>
           <img src={logo} alt='logo' />
           <div className='text'>
-            LT Hand Made tự hào mang tới một nền tảng bán nguyên liệu, vật liểu làm đồ thủ công chất
+            LT Hand Made tự hào mang tới một nền tảng bán vật liệu, vật liểu làm đồ thủ công chất
             lượng, giúp hế hệ trẻ Việt Nam thỏa sức sáng tạo, thể hiện chất riêng
           </div>
           <div className='contact'>

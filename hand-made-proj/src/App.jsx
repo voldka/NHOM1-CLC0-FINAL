@@ -13,6 +13,7 @@ import Coupons from './pages/admin/coupons';
 import Dashboard from './pages/admin/dashboard';
 import Orders from './pages/admin/orders';
 import ProductTypes from './pages/admin/product-types';
+import Materials from './pages/admin/materials';
 import Products from './pages/admin/products';
 import UpdateProduct from './pages/admin/update-product';
 import Users from './pages/admin/users';
@@ -184,6 +185,10 @@ const App = () => {
         {
           path: 'loai-san-pham',
           element: <LazyComponent component={<ProductTypes />} />,
+        },
+        {
+          path: 'material',
+          element: <LazyComponent component={<Materials />} />,
         },
       ],
     },

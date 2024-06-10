@@ -9,6 +9,7 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UserOutlined,
+  CodeSandboxOutlined,
 } from '@ant-design/icons';
 import { Button, Layout, Menu, Tooltip, Typography } from 'antd';
 import { useEffect, useState } from 'react';
@@ -53,6 +54,12 @@ const menuItems = [
     activeKey: 'banner',
     icon: <FileImageOutlined />,
   },
+  {
+    path: 'material',
+    label: 'Thành phần, Vật liệu',
+    activeKey: 'material',
+    icon: <CodeSandboxOutlined />,
+  },
   // {
   //   path: 'khuyen-mai',
   //   label: 'Khuyến mãi',
@@ -65,6 +72,7 @@ const titleMap = {
   admin: 'admin dashboard',
   'don-hang': 'quản lý đơn hàng',
   'tai-khoan': 'quản lý tài khoản',
+  'material': 'quản lý thành phần, vật liệu',
   'san-pham': 'quản lý sản phẩm',
   banner: 'quản lý quảng cáo',
   'khuyen-mai': 'quản lý khuyến mãi',

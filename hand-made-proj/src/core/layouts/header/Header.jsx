@@ -119,17 +119,17 @@ const Header = () => {
             </button>
 
             <div className="input">
-              <input style={{margin:'0px'}}
+              <input style={{ margin: '0px' }}
                 placeholder="Tìm kiếm tại đây ..."
                 value={searchValue}
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}
               />
-              <button className="incon-search" style={{margin:'0px'}} onClick={handleIconClick} >
+              <button className="incon-search" style={{ margin: '0px' }} onClick={handleIconClick} >
                 <img src={SearchIcon} alt="logo" />
               </button>
             </div>
-            
+
             {userInfo?.isAdmin ? (
               <>
                 <div

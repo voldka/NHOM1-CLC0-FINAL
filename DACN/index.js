@@ -21,6 +21,7 @@ app.use('/api/payment', require('./src/routes/PaymentRouter'));
 app.use('/api/carousels', require('./src/routes/CarouselRouter'));
 app.use('/api/comment', require('./src/routes/CommentRouter'));
 app.use('/api/product-types', require('./src/routes/ProductTypeRouter'));
+app.use('/api/material', require('./src/routes/MaterialRouter'));
 app.use('/api/promotions', require('./src/routes/PromotionsRouter'));
 app.use('/api/cart', require('./src/routes/CartRouter'));
 app.use('/api/statistic', require('./src/routes/StatisticRouter'));
